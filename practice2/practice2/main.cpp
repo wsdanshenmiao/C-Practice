@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <graphics.h>
+#include "tools.hpp"
 
 int main()
 {
@@ -14,6 +15,19 @@ int main()
 	loadimage(&picture, "assets/key.jpg");
 	//Êä³öÍ¼Æ¬
 	putimage(0, 0, &picture);
+
+	//ÑÚÂëÍ¼Í¸Ã÷ÌùÍ¼
+	IMAGE player[2];
+	loadimage(player + 0, "assets/planeNormal_1.jpg");
+	loadimage(player + 1, "assets/planeNormal_2.jpg");
+	putimage(100, 100, player + 0, NOTSRCERASE);//ÏÈ»æÖÆÑÚÂëÍ¼
+	putimage(100, 100, player + 1, SRCERASE);//ÔÚ»æÖÆÔ­Í¼
+
+	//PNGÍ¸Ã÷ÌùÍ¼
+	IMAGE img_png;
+	loadimage(&img_png, "assets/²©ÀöÁéÃÎ£¨ºìÄ§Ïç×Ô»úÏñËØ»æ£©.png");
+	//putimage(200, 200, &img_png);
+	drawImg(200, 200, &img_png);
 
 	getchar();
 
