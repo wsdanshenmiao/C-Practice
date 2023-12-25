@@ -1,2 +1,5 @@
 ﻿  main.c
+D:\Git版本管理\C-Practice\字符串和内存函数\字符串和内存函数\main.c(11,16): warning C4090: “return”: 不同的“const”限定符
+D:\Git版本管理\C-Practice\字符串和内存函数\字符串和内存函数\main.c(22,15): warning C4090: “=”: 不同的“const”限定符
+D:\Git版本管理\C-Practice\字符串和内存函数\字符串和内存函数\main.c(14,8): warning C4090: “初始化”: 不同的“const”限定符
   字符串和内存函数.vcxproj -> D:\Git版本管理\C-Practice\字符串和内存函数\x64\Debug\字符串和内存函数.exe

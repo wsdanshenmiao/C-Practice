@@ -4,27 +4,78 @@
 #include <stdio.h>
 #include <string.h>
 
-char* my_strncpy(char* dest, const char* sourse,unsigned int count)
+char* my_strstr(const char* string, const char* substring)
 {
-	assert(dest && sourse);
-	char* ret = dest;
-	while (count && (*dest++ = *sourse++) != '\0') {
-		count--;
+	assert(string && substring);
+	if (substring == NULL) {
+		return string;
 	}
-	while (count--) {
-		*dest++ = '\0';
+	char* ret;
+	char* store_Substring = substring;
+	while (*string) {
+		while (*string != *substring) {
+			if (!*string) {
+				return NULL;
+			}
+			string++;
+		}
+		ret = string;
+		while (*substring) {
+			if (!*string) {
+				return NULL;
+			}
+			if (*string == *substring) {
+				string++;
+				substring++;
+			}
+			else {
+				break;
+			}
+		}
+		if (*substring == '\0') {
+			return ret;
+		}
+		substring = store_Substring;
 	}
-	return ret;
+	return NULL;
 }
 
 int main()
 {
-	char arr1[] = "abcdefghijklmn";
-	char arr2[] = "clannad";
-	my_strncpy(arr1, arr2, 9);
-	printf("%s", arr1);
+	char* p1 = "I get CLANNAD,CLANNAD";
+	char* p2 = "CLANNAD";
+	//char* ret = strstr(p1, p2);	//子串存在则返回子串首字母地址，否则返回空指针，只返回第一次出现的地址
+	char* ret = my_strstr(p1, p2);
+	if (ret == NULL) {
+		printf("子串不存在\n");
+	}
+	else {
+		printf("%s", ret);
+	}
 	return 0;
 }
+
+//char* my_strncpy(char* dest, const char* sourse,unsigned int count)
+//{
+//	assert(dest && sourse);
+//	char* ret = dest;
+//	while (count && (*dest++ = *sourse++) != '\0') {
+//		count--;
+//	}
+//	while (count--) {
+//		*dest++ = '\0';
+//	}
+//	return ret;
+//}
+//
+//int main()
+//{
+//	char arr1[] = "abcdefghijklmn";
+//	char arr2[] = "clannad";
+//	my_strncpy(arr1, arr2, 9);
+//	printf("%s", arr1);
+//	return 0;
+//}
 
 //#define _CRT_SECURE_NO_WARNINGS
 //
