@@ -1,5 +1,42 @@
 #define _CRT_SECURE_NO_WARNINGS
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <assert.h>
+
+void* my_memmove(void* dest, const void* src, size_t num)
+{
+	assert(dest && src);
+	size_t i;
+	void* ret = dest;
+	if (dest < src) {
+		for (i = 0; i < num; i++) {
+			*((char*)dest + i) = *((char*)src + i);
+		}
+	}
+	else {
+		for (i = num; i > 0; i--) {
+			*((char*)dest + i - 1) = *((char*)src + i - 1);
+		}
+	}
+	return ret;
+}
+
+int main()
+{
+	int arr1[] = { 0,1,2,3,4,5,6,7,8,9 };
+	int* arr2 = malloc(sizeof(arr1));
+	//memcpy(arr2, arr1,sizeof(arr1));	//内存拷贝，c语言标准只需拷贝内存不重叠的情况，VS编译器下也可拷贝重叠情况
+	//memmove(arr1, arr1 + 3, 20);	//可处理内存重叠的情况
+	my_memmove(arr1 + 3, arr1, 20);
+	for (int i = 0; i < sizeof(arr1)/sizeof(arr1[0]); i++) {
+		printf("%d\n", arr1[i]);
+	}
+	return  0;
+}
+
+
 //#include <stdio.h>
 //#include <ctype.h>
 //
@@ -107,6 +144,9 @@
 ////	return NULL;
 ////}
 //
+//#include <assert.h>
+//#include <stdio.h>
+//#include <string.h>
 ////可用KMP算法解决
 //char* my_strstr(const char* string, const char* substring)
 //{
