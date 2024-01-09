@@ -1,0 +1,4 @@
+﻿  main.c
+D:\Git版本管理\C-Practice\通讯录\通讯录\main.c(33,3): warning C4013: “system”未定义；假设外部返回 int
+D:\Git版本管理\C-Practice\通讯录\通讯录\main.c(46,4): warning C4013: “gets”未定义；假设外部返回 int
+  通讯录.vcxproj -> D:\Git版本管理\C-Practice\通讯录\x64\Debug\通讯录.exe
