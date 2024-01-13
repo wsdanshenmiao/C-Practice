@@ -3,6 +3,8 @@
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+#include <io.h>
 
 enum Message
 {
@@ -23,11 +25,51 @@ typedef struct Contact_Person	//通讯人结构体
 }Contact_Person;
 Contact_Person* first = NULL;
 
+void contacts_Init()
+{
+	size_t condition;
+	Contact_Person* node, * pre;
+	FILE* pfr;
+	if (_access("contact.dat", 0)) {
+		pfr = fopen("contact.dat", "wb");
+	}
+	else {
+		pfr = fopen("contact.dat", "rb");
+	}
+	first = malloc(sizeof(Contact_Person));
+	condition = fread(first, sizeof(Contact_Person), 1, pfr);
+	if (!condition) {
+		free(first);
+		first = NULL;
+		return;
+	}
+	for (pre = first, node = malloc(sizeof(Contact_Person)), first->next = node;
+		fread(node, sizeof(Contact_Person), 1, pfr);
+		pre = node, node = malloc(sizeof(Contact_Person)), pre->next = node);
+	free(node);
+	node = NULL;
+	pre->next = NULL;
+	fclose(pfr);
+	pfr = NULL;
+}
+
 void Message()
 {
 	printf("*************************0.姓名*************************\n");
 	printf("******************1.年龄        2.性别******************\n");
 	printf("******************3.电话        4.地址******************\n");
+}
+
+void delete_Data()
+{
+	Contact_Person* pre, * dnote;
+	for (pre = NULL, dnote = first; dnote;) {
+		pre = dnote;
+		dnote = dnote->next;
+		free(pre);
+		pre = NULL;
+	}
+	first = NULL;
 }
 
 void add_Person()
@@ -151,4 +193,19 @@ void print_Contacts()	//打印通讯录
 		printf("%-16s%-16d%-16s%-24s%-24s\n", node->name, node->age, node->sex
 											, node->tele, node->addr);
 	}
+}
+
+void save_Contacts()
+{
+	Contact_Person* snode;
+	FILE* pfw = fopen("contact.dat", "wb");	//创建文件
+	if (pfw == NULL) {
+		printf("%s", strerror(errno));
+		return;
+	}
+	for (snode = first; snode; snode = snode->next) {	//将数据存入文件中，遇到NULL时停止
+		fwrite(snode, sizeof(Contact_Person), 1, pfw);
+	}
+	fclose(pfw);
+	pfw = NULL;
 }

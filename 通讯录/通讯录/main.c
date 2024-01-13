@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <string.h>
 #include "Contacts.h"
 
 enum Function
@@ -11,20 +12,22 @@ enum Function
 	SEARCH,
 	MODIFY,
 	PRINT,
-	SORT
+	SORT,
+	SAVE
 };
 
 void Catalogue()
 {
-	printf("************************0.EXIT***************************\n");
-	printf("*****************1.ADD          2.DELETE*****************\n");
-	printf("*****************3.SEARCH       4.MODIFY*****************\n");
-	printf("*****************5.PRINT        6.SORT*******************\n");
+	printf("*****************0.EXIT         1.ADD********************\n");
+	printf("*****************2.DELETE       3.SEARCH*****************\n");
+	printf("*****************4.MODIFY       5.PRINT******************\n");
+	printf("*****************6.SORT         7.SAVE*******************\n");
 }
 
 int main()
 {
 	enum Function select;
+	contacts_Init();
 	do {
 		Catalogue();	//打印目录
 		printf("请选择:");
@@ -34,6 +37,8 @@ int main()
 		switch (select)
 		{
 		case EXIT:
+			save_Contacts();
+			delete_Data();
 			break;
 		case ADD: {
 			add_Person();
@@ -52,7 +57,7 @@ int main()
 			char sname[20];
 			printf("请输入要查找的通讯人的姓名：");
 			gets(sname);
-			search_Person(&sname);
+			search_Person(sname);
 			getchar();
 			break;
 		}
@@ -70,6 +75,12 @@ int main()
 			break;
 		}
 		case SORT: {
+			break;
+		}
+		case SAVE: {
+			save_Contacts();
+			printf("保存成功。\n");
+			getchar();
 			break;
 		}
 		default: {
