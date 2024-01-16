@@ -18,6 +18,7 @@ void delete_Person();
 Contact_Person* search_Person(char* sname);
 void modify_Conracts();
 void print_Contacts();
+void sort_Contacts();
 void save_Contacts();
 
 #endif // !__CONTACTS_H__

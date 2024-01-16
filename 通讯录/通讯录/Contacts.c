@@ -195,6 +195,40 @@ void print_Contacts()	//��ӡͨѶ¼
 	}
 }
 
+void sort_Contacts()
+{
+	Contact_Person* after;
+	Contact_Person* node;
+	Contact_Person* pre;
+	int count;
+	int i;
+	for (count = 0, node = first; node; node = node->next, count++);
+	if (first) {
+		for (i = count, pre = NULL, node = first, after = first->next; i && after;
+			i--, pre = node, node = after, after = after->next) {
+			int j;
+			Contact_Person* tafter = after;
+			for (j = i - 1; j && tafter; j--, tafter = tafter->next) {
+				if (strcmp(tafter->name, node->name) < 0) {
+					Contact_Person* temp = tafter->next;
+					if (pre) {
+						pre->next = tafter;
+						tafter->next = node;
+						node->next = temp;
+					}
+					else {
+						first = tafter;
+						tafter->next = node;
+						node->next = temp;
+					}
+					tafter = temp;
+				}
+			}
+		}
+
+	}
+}
+
 void save_Contacts()
 {
 	Contact_Person* snode;

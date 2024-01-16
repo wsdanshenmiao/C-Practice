@@ -75,6 +75,9 @@ int main()
 			break;
 		}
 		case SORT: {
+			sort_Contacts();
+			printf("≈≈–Ú≥…π¶°£\n");
+			getchar();
 			break;
 		}
 		case SAVE: {
