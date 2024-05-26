@@ -1,2 +1,5 @@
 ﻿  Contacts.c
-  通讯录.vcxproj -> D:\Git版本管理\C-Practice\通讯录\x64\Debug\通讯录.exe
+  main.c
+  正在生成代码...
+D:\Git版本管理\C\C-Practice\通讯录\通讯录\main.c(52,4): warning C4013: “gets”未定义；假设外部返回 int
+  通讯录.vcxproj -> D:\Git版本管理\C\C-Practice\通讯录\x64\Debug\通讯录.exe

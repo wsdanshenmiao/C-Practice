@@ -195,38 +195,65 @@ void print_Contacts()	//打印通讯录
 	}
 }
 
+int LinkCmp(const void* e1, const void* e2)
+{
+	return (*((Contact_Person*)e1)).age - (*((Contact_Person*)e2)).age;
+}
+
 void sort_Contacts()
 {
+#if 1
 	Contact_Person* after;
 	Contact_Person* node;
 	Contact_Person* pre;
 	int count;
 	int i;
 	for (count = 0, node = first; node; node = node->next, count++);
-	if (first) {
-		for (i = count, pre = NULL, node = first, after = first->next; i && after;
-			i--, pre = node, node = after, after = after->next) {
+	if (first && first->next) {
+		for (i = count - 1; i; i--) {
 			int j;
-			Contact_Person* tafter = after;
-			for (j = i - 1; j && tafter; j--, tafter = tafter->next) {
-				if (strcmp(tafter->name, node->name) < 0) {
-					Contact_Person* temp = tafter->next;
+			for (pre = NULL, node = first, after = first->next, j = i - 1; j; j--) {
+				if (strcmp(after->name, node->name) < 0) {
+					Contact_Person* temp = after->next;
 					if (pre) {
-						pre->next = tafter;
-						tafter->next = node;
+						pre->next = after;
+						after->next = node;
 						node->next = temp;
 					}
 					else {
-						first = tafter;
-						tafter->next = node;
+						first = after;
+						after->next = node;
 						node->next = temp;
 					}
-					tafter = temp;
+					pre = after, after = node->next;
+				}
+				else {
+					pre = node, node = after, after = after->next;
 				}
 			}
 		}
-
 	}
+#else	//失败
+	Contact_Person* node;
+	int count;
+	int i;
+	for (count = 0, node = first; node; node = node->next, count++);	//计算数据个数
+	Contact_Person** LinkNode = malloc(count  * sizeof(Contact_Person*));	//创建一个数组储存链表节点
+	if (LinkNode == NULL) {
+		return;
+	}
+	for (i = 0, node = first; i < count; i++, node = node->next) {
+		LinkNode[i] = node;	//将节点储存到数组中
+	}
+	qsort(LinkNode, count, sizeof(Contact_Person*), LinkCmp);	//对链表进行排序
+	first = LinkNode[0];
+	for (i = 1, node = first; i < count; i++, node = node->next) {
+		node->next = LinkNode[i];
+	}
+	node = NULL;
+	free(LinkNode);
+	LinkNode = NULL;
+#endif
 }
 
 void save_Contacts()

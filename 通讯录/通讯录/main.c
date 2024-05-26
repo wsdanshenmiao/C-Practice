@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "Contacts.h"
+#include <stdlib.h>
 
 enum Function
 {

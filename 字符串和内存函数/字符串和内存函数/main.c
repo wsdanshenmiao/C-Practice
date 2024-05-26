@@ -1,19 +1,35 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
-#include <assert.h>
-
+#include <string.h>
 int main()
 {
-	int arr1[] = { 0,1,2,3,4,5,6,7,8,9 };
-	int arr2[] = { 0,1,3,6,3,4,8 };
-	printf("%d", memcmp(arr1, arr2, 3 * sizeof(arr1[0])));
-	int arr3[10] = { 0 };
-	memset(arr3, 1, 40);
+	char str[] = "- This, a sample string.";
+	char* pch;
+	printf("Splitting string \"%s\" into tokens:\n", str);
+	pch = strtok(str, " ,.-");
+	while (pch != NULL)
+	{
+		printf("%s\n", pch);
+		pch = strtok(NULL, " ,.-");
+	}
 	return 0;
 }
+
+//#include <stdlib.h>
+//#include <string.h>
+//#include <stdio.h>
+//#include <assert.h>
+//
+//int main()
+//{
+//	int arr1[] = { 0,1,2,3,4,5,6,7,8,9 };
+//	int arr2[] = { 0,1,3,6,3,4,8 };
+//	printf("%d", memcmp(arr1, arr2, 3 * sizeof(arr1[0])));
+//	int arr3[10] = { 0 };
+//	memset(arr3, 1, 40);
+//	return 0;
+//}
 
 //void* my_memmove(void* dest, const void* src, size_t num)
 //{
